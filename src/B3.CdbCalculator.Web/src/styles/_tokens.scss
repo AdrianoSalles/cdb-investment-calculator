@@ -1,0 +1,88 @@
+// ============================================================
+// Design Tokens — B3 CDB Calculator
+// Centraliza todas as cores do projeto como custom properties.
+// Importe este arquivo em styles.scss com: @use 'styles/tokens';
+// ============================================================
+
+:root {
+  // ─── Cor primária (azul B3) ───────────────────────────────────────────────
+  --color-primary: #1769e0; // cor principal — botão, links, ícones (8× no projeto)
+  --color-primary-dark: #0752c6; // gradient do botão primário
+  --color-primary-deeper: #064dbd; // gradient da marca no header
+  --color-primary-navy: #235fae; // texto de alerta informativo
+
+  // ─── Fundos e superfícies ────────────────────────────────────────────────
+  --color-bg-body: #f6f9fd; // fundo geral da página
+  --color-bg-hero-start: #f8fbff; // gradient superior da hero section
+  --color-bg-hero-end: #f3f7fc; // gradient inferior da hero section
+  --color-bg-white: #fff; // branco puro
+  --color-bg-card: rgba(255, 255, 255, 0.95); // card principal (levemente translúcido)
+  --color-bg-header: rgba(255, 255, 255, 0.91); // header com blur
+  --color-bg-input-prefix: #f7f9fc; // prefixo "R$" do input
+  --color-bg-badge-nav: #f5f9fe; // badge no header (ex: "B3")
+  --color-bg-alert-info: #f2f7fe; // fundo do alerta informativo
+  --color-bg-alert-error: #fff5f6; // fundo do alerta de erro
+  --color-bg-icon-blue: #eaf3ff; // fundo do ícone azul nas seções
+  --color-bg-gross-card: #f4f8fe; // card de resultado bruto
+  --color-bg-rates-box: #f3f8fe; // caixa de parâmetros (CDI/TB)
+  --color-bg-net-card: #f2fbf6; // card de resultado líquido
+  --color-bg-footer: #082654; // fundo do footer
+
+  // ─── Bordas ──────────────────────────────────────────────────────────────
+  --color-border-card: #dfe8f4; // borda do card principal
+  --color-border-divider: #e3eaf3; // divisores internos (3× no projeto)
+  --color-border-input: #cbd6e5; // borda do campo de entrada
+  --color-border-input-prefix: #e1e7ef; // separador do prefixo "R$"
+  --color-border-result-list: #e6ecf3; // separadores da lista de resultados
+  --color-border-header: rgba(216, 226, 238, 0.92); // borda inferior do header
+  --color-border-alert-info: #cfe2fb; // borda do alerta informativo e rates box
+  --color-border-badge-nav: #cfe0f7; // borda do badge no header
+  --color-border-gross-card: #c9ddf8; // borda do card de resultado bruto
+  --color-border-net-card: #c8ead8; // borda do card de resultado líquido
+
+  // ─── Texto ───────────────────────────────────────────────────────────────
+  --color-text-hero-heading: #0b1b3b; // título principal da hero section
+  --color-text-brand: #0e2142; // cor da marca no header
+  --color-text-section-heading: #102343; // h2 das seções
+  --color-text-input: #0f1f3d; // texto digitado nos inputs
+  --color-text-body: #152641; // corpo de texto geral
+  --color-text-label: #172848; // label dos campos do formulário
+  --color-text-result-dd: #182945; // valores na lista de resultados
+  --color-text-highlight-label: #192a48; // rótulo dos cards de destaque
+  --color-text-nav: #41516d; // links do menu e termos na lista
+  --color-text-rates-strong: #244d84; // título da caixa de parâmetros
+  --color-text-gross-value: #0757cb; // valor do resultado bruto
+  --color-text-input-prefix: #5c6b84; // "R$" e símbolo do prefixo
+  --color-text-hero-paragraph: #60708e; // subtítulo da hero section
+  --color-text-result-icon: #6780a5; // ícones na lista de resultados
+  --color-text-section-paragraph: #71809a; // parágrafos das seções
+  --color-text-brand-small: #73829a; // subtítulo da marca no header
+  --color-text-label-info: #74829b; // ícone de informação no label
+  --color-text-field-hint: #77869f; // dica abaixo dos campos
+  --color-text-footer-paragraph: #b8c9e0; // parágrafos do footer
+
+  // ─── Status: Erro ────────────────────────────────────────────────────────
+  --color-error: #c93645; // borda do input inválido
+  --color-error-text: #b32636; // texto de erro abaixo do campo
+  --color-error-alert-text: #9d2432; // texto dentro do alerta de erro
+  --color-error-bg: #fff5f6; // fundo do alerta de erro
+  --color-error-border: #f0c2c8; // borda do alerta de erro
+
+  // ─── Status: Sucesso (resultado líquido) ─────────────────────────────────
+  --color-success: #0a9b5b; // ícone do card líquido
+  --color-success-dark: #07824c; // valor do resultado líquido
+  --color-success-bg: #f2fbf6; // fundo do card líquido
+  --color-success-border: #c8ead8; // borda do card líquido
+
+  // ─── Sombras ─────────────────────────────────────────────────────────────
+  --shadow-card: rgba(31, 57, 91, 0.09); // sombra do card principal
+  --shadow-primary: rgba(23, 105, 224, 0.24); // sombra do botão e marca
+  --shadow-primary-hover: rgba(23, 105, 224, 0.29); // sombra do botão ao hover
+  --shadow-primary-focus: rgba(23, 105, 224, 0.25); // outline de foco do botão
+
+  // ─── Transparências da cor primária ──────────────────────────────────────
+  --color-primary-glow: rgba(23, 105, 224, 0.13); // anel decorativo da hero
+  --color-primary-radial: rgba(36, 122, 240, 0.11); // gradiente radial da hero
+  --color-primary-input-focus: rgba(23, 105, 224, 0.1); // anel de foco do input
+  --color-primary-selection: rgba(23, 105, 224, 0.2); // seleção de texto (::selection)
+}

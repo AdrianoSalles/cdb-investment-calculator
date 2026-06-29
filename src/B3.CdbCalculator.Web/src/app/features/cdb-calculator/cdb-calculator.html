@@ -1,0 +1,178 @@
+<section class="hero" aria-labelledby="page-title">
+  <div class="hero__glow hero__glow--left" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--right" aria-hidden="true"></div>
+
+  <div class="page-container">
+    <div class="hero__heading">
+      <h1 id="page-title">Simulador de CDB</h1>
+      <p>Calcule o rendimento bruto e líquido do seu investimento.</p>
+    </div>
+
+    <div class="calculator-card">
+      <section class="calculator-card__form" aria-labelledby="investment-data-title">
+        <div class="section-heading">
+          <span class="section-heading__icon section-heading__icon--blue">
+            <app-icon name="calculator" [size]="23" />
+          </span>
+          <span>
+            <h2 id="investment-data-title">Dados do investimento</h2>
+            <p>Preencha os campos abaixo para simular.</p>
+          </span>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="initialAmount">
+                Valor inicial
+                <span class="label-info" title="Informe o valor que deseja investir">
+                  <app-icon name="info" [size]="15" />
+                </span>
+              </label>
+
+              <div class="input-shell" [class.input-shell--invalid]="showInitialAmountError()">
+                <span class="input-prefix">R$</span>
+                <input
+                  id="initialAmount"
+                  type="number"
+                  inputmode="decimal"
+                  min="0.01"
+                  step="0.01"
+                  formControlName="initialAmount"
+                  aria-describedby="initialAmountHint initialAmountError"
+                />
+              </div>
+
+              <p id="initialAmountHint" class="field-hint">Informe um valor positivo.</p>
+              @if (showInitialAmountError()) {
+                <p id="initialAmountError" class="field-error" role="alert">
+                  O valor inicial deve ser maior que zero.
+                </p>
+              }
+            </div>
+
+            <div class="field">
+              <label for="months">
+                Prazo em meses
+                <span class="label-info" title="O prazo mínimo é de dois meses">
+                  <app-icon name="info" [size]="15" />
+                </span>
+              </label>
+
+              <div class="input-shell" [class.input-shell--invalid]="showMonthsError()">
+                <input
+                  id="months"
+                  type="number"
+                  inputmode="numeric"
+                  min="2"
+                  step="1"
+                  formControlName="months"
+                  aria-describedby="monthsHint monthsError"
+                />
+              </div>
+
+              <p id="monthsHint" class="field-hint">Prazo maior que 1 mês.</p>
+              @if (showMonthsError()) {
+                <p id="monthsError" class="field-error" role="alert">
+                  Informe um prazo inteiro de pelo menos 2 meses.
+                </p>
+              }
+            </div>
+          </div>
+
+          <button class="primary-button" type="submit" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <span class="spinner" aria-hidden="true"></span>
+              Calculando...
+            } @else {
+              Calcular investimento
+              <app-icon name="arrow-right" [size]="19" />
+            }
+          </button>
+
+          @if (errorMessage()) {
+            <div class="alert alert--error" role="alert">
+              <app-icon name="info" [size]="19" />
+              <span>{{ errorMessage() }}</span>
+            </div>
+          }
+
+          <div class="alert alert--info">
+            <app-icon name="info" [size]="19" />
+            <span>O resultado é calculado pela API com os parâmetros informados.</span>
+          </div>
+        </form>
+      </section>
+
+      <section
+        #resultsPanel
+        class="calculator-card__results"
+        aria-labelledby="simulation-result-title"
+        aria-live="polite"
+        tabindex="-1"
+      >
+        <div class="section-heading">
+          <span class="section-heading__icon section-heading__icon--blue">
+            <app-icon name="chart" [size]="24" />
+          </span>
+          <span>
+            <h2 id="simulation-result-title">Resultados da simulação</h2>
+            <p>Confira o resumo do seu investimento.</p>
+          </span>
+        </div>
+
+        <div class="result-highlights">
+          <article class="highlight-card highlight-card--gross">
+            <span class="highlight-card__icon">
+              <app-icon name="coins" [size]="21" />
+            </span>
+            <span class="highlight-card__label">Resultado bruto</span>
+            <strong>
+              {{ result()?.grossAmount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+            </strong>
+          </article>
+
+          <article class="highlight-card highlight-card--net">
+            <span class="highlight-card__icon">
+              <app-icon name="wallet" [size]="21" />
+            </span>
+            <span class="highlight-card__label">Resultado líquido</span>
+            <strong>
+              {{ result()?.netAmount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+            </strong>
+          </article>
+        </div>
+
+        <dl class="result-list">
+          <div>
+            <dt><app-icon name="chart" [size]="19" /> Rendimento</dt>
+            <dd>{{ result()?.grossEarnings | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</dd>
+          </div>
+          <div>
+            <dt><app-icon name="receipt" [size]="19" /> Imposto</dt>
+            <dd>{{ result()?.taxAmount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</dd>
+          </div>
+          <div>
+            <dt><app-icon name="percent" [size]="19" /> Alíquota</dt>
+            <dd>
+              @if (taxRatePercentage() !== null) {
+                {{ taxRatePercentage() | number: '1.0-2' : 'pt-BR' }}%
+              } @else {
+                —
+              }
+            </dd>
+          </div>
+        </dl>
+
+        <div class="rates-box">
+          <app-icon name="info" [size]="20" />
+          <div>
+            <strong>Parâmetros desta avaliação</strong>
+            <span>CDI: 0,9% ao mês</span>
+            <span>TB: 108% do CDI</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
