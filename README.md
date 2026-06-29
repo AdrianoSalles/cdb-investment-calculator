@@ -48,7 +48,7 @@ B3.CdbCalculator.sln
 | Ferramenta | Versão mínima |
 |---|---|
 | [.NET SDK](https://dotnet.microsoft.com/download/dotnet/10.0) | 10.0 |
-| [Node.js](https://nodejs.org) | 22.x |
+| [Node.js](https://nodejs.org) | 22.22.3 ou superior |
 
 ---
 
@@ -115,7 +115,7 @@ reportgenerator \
 
 O relatório estará disponível em `coverage-report/index.html`.
 
-Cobertura atual: **100%** de linhas, branches e métodos na camada Core.
+Cobertura atual: **100%** de linhas e branches na camada Core.
 
 ### Frontend — testes unitários (Angular)
 
